@@ -22,7 +22,7 @@ ref=$(git ls-remote ${source} HEAD | cut -f1)
 shortref=$(echo -n ${ref} | cut -c 1-7)
 
 ## Explicitly build Targets, except 'build'
-for target in $(grep "FROM .* as" ${dockerfile} | sed -r 's/.*FROM.*as (.*)/\1/g' | grep -v build); do
+for target in $(grep "FROM .* as" ${dockerfile} | sed -r 's/.*FROM.*as (.*)/\1/g' | grep -v "build*"); do
 
   ## Append Target to Tag unless it is 'run'
   if [ "${target}" != "run" ]; then
