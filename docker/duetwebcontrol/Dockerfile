@@ -22,11 +22,11 @@ ARG DFKS_VERSION=master
 
 WORKDIR /opt
 
-RUN git clone ${REPO} dwc2-for-klipper-socket \
+RUN git clone ${DFKS_REPO} dwc2-for-klipper-socket \
  && cd dwc2-for-klipper-socket \
- && git checkout ${VERSION}
+ && git checkout ${DFKS_VERSION}
 
-RUN virtualenv -p python2 venv \
+RUN python -m venv venv \
  && venv/bin/pip install tornado
 
 ## Runtime Image
@@ -44,5 +44,5 @@ RUN groupadd dwc --gid 1000 \
 
 USER dwc
 VOLUME ["/opt/run", "/opt/cfg", "/opt/gcode"]
-ENTRYPOINT ["/opt/venv/bin/python", "dkfs/web_dwc2.py"]
+ENTRYPOINT ["/opt/venv/bin/python", "dwc2-for-klipper-socket/web_dwc2.py"]
 CMD ["-c", "cfg/dwc2.cfg"]
