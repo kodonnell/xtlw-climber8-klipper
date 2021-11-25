@@ -131,6 +131,22 @@ services:
       - "traefik.http.routers.mainsail.rule=PathPrefix(`/`)"
       - "traefik.http.routers.mainsail.entrypoints=web"
 
+  duetwebcontrol:
+    image: mkuf/duetwebcontrol:pre
+    container_name: duetwebcontrol
+    restart: unless-stopped
+    depends_on:
+      - traefik
+    profiles:
+      - duetwebcontrol
+    ports:
+      - 4750:4750
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.duetwebcontrol.loadbalancer.server.port=4750"
+      - "traefik.http.routers.duetwebcontrol.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.duetwebcontrol.entrypoints=web"
+
   ## Accompanying Services/Infra
   ##
 
