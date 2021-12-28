@@ -42,7 +42,7 @@ services:
       - gcode:/opt/gcode
       - log:/opt/log
     devices:
-      - /dev/ttymxc3:/dev/ttymxc3
+      - /dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00:/dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00
     profiles:
       - fluidd
       - mainsail
