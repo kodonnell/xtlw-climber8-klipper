@@ -146,16 +146,16 @@ services:
   ##
 
   ## Webcam Service
-  ustreamer:
-    <<: *ustreamer-svc
-    container_name: ustreamer
-    devices:
-      - /dev/video0:/dev/webcam
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.ustreamer.loadbalancer.server.port=8080"
-      - "traefik.http.routers.ustreamer.rule=PathPrefix(`/stream`)"
-      - "traefik.http.routers.ustreamer.entrypoints=web"
+  # ustreamer:
+  #   <<: *ustreamer-svc
+  #   container_name: ustreamer
+  #   devices:
+  #     - /dev/video0:/dev/webcam
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.services.ustreamer.loadbalancer.server.port=8080"
+  #     - "traefik.http.routers.ustreamer.rule=PathPrefix(`/stream`)"
+  #     - "traefik.http.routers.ustreamer.entrypoints=web"
 
   ## Loadbalancer/Proxy
   traefik:
