@@ -4,6 +4,7 @@ This is mostly:
 
 - Klipper + Fluidd in Docker as per [prind](https://github.com/mkuf/prind)
 - Config for the XTLW Climber8 (an entry-level IDEX printer). To be honest, most of this will apply to any IDEX, and include goodies like a better IDEX display, etc.
+- Designed for SuperSlicer.
 
 ## Using it
 
@@ -16,7 +17,6 @@ See [prind](https://github.com/mkuf/prind) for more detail (e.g. flashing MCU, o
 
 ## Todo
 
-- Pull this in: https://github.com/Klipper3d/klipper/pull/4508
 - Add SuperSlicer config inc. the STL for the plate. Is there a dockerised SuperSlicer?
 - Superslicer - add TURN_OFF_HEATERS to the end. Is there a try-catch that turns them off if anything fails too?
 - Can we auto-disable if heaters are active for too long doing nothing?
