@@ -17,12 +17,13 @@ See [prind](https://github.com/mkuf/prind) for more detail (e.g. flashing MCU, o
 
 ## Todo
 
+- LCD: make temps work for multiple extruders e.g. heat pla all.
+- Add retraction to park
+- Copy machine limits across from cura ... mine are too conservative now? Both in klipper and in superslicer.
 - Add SuperSlicer config inc. the STL for the plate. Is there a dockerised SuperSlicer?
-- Superslicer - add TURN_OFF_HEATERS to the end. Is there a try-catch that turns them off if anything fails too?
 - Can we auto-disable if heaters are active for too long doing nothing?
 - Fix how we can't change extruder at z=0 (I think it goes for z=-0.003 for some reason which is OOB).
 - Load/unload filament macros.
-- Add more `action_respond_info` 
 - Display - check this out for goodies https://github.com/Klipper3d/klipper/blob/master/klippy/extras/display/menu.cfg
 - LCD for live changing offsets?
 - Sort out our approach to oozing/purging. 
