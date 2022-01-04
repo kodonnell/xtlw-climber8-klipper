@@ -17,23 +17,33 @@ docker-compose --profile fluidd down # and down
 
 See [prind](https://github.com/mkuf/prind) for more detail (e.g. flashing MCU, other frontends, etc.)
 
+## IDEX calibration
+
+Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll the lines when you print it, but for reference (since I don't have the STLs just the gcode), the left min/max `Y` is 46/174, and right extruder min/max is 45.2/174.8 - therefore every step the difference between left and right is 0.04mm. So if we align at e.g. the +15th, this means the right extruder is 15x0.04 = 0.6mm too low, so our offset should be +0.6 over what we currently have.
+
 ## Slicing tips
 
 - I don't use a prime tower - the one in SuperSlicer isn't optimal and is designed more for a single hotend with multiple filaments.
 - For now I use a draft shield as it helps with any oozing, and acts as a purge layer. Make it two layers wide so both get purged.
+- Use z-hopping and retract on tool changes (which triggers the z-hopping).
+
+## Slicer vs Klipper?
+
+Our slicer (SuperSlicer) can do a bunch of stuff that Klipper can - e.g. managing tool changes nicely. Klipper is nice as it gives me complete control and doesn't need hacking around to make work - and means we can easily change slicers. SuperSlicer is nice as less burden on me to develop, and maybe does nice stuff for free that would be hard for me to implement? (Example?). For now we'll go with using Klipper for the tool change stuff for two reasons:
+
+- I'll be wanting to be add my own wipe brush etc. - and while I could add that to the tool change code in SuperSlicer, easier to integrate it into Klipper so it's the same regardless of slicer.
+- IDEX is not that popular (less popular than dual filament extruders?). Point is, there's unlikely to be a heap of dev going into slicers for IDEX, and what is there will be inconsistent across slicers etc. Better for us to do it.
 
 ## Todo
 
-- Add z-hop back.
-- Why are fans turning off?
-- Do the purge line at ever layer?
+- Calibration docs - copy across from that PR.
+- Add bed levelling to menu.
 - Menu (see [here](https://github.com/Klipper3d/klipper/blob/master/klippy/extras/display/menu.cfg):
   - Make temps work for multiple extruders e.g. heat pla all.
   - Allowing moving of either extruder.
 - Copy machine limits across from cura ... mine are too conservative now? Both in klipper and in superslicer.
 - Add SuperSlicer config inc. the STL for the plate. Is there a dockerised SuperSlicer?
 - Can we auto-disable if heaters are active for too long doing nothing?
-- Fix how we can't change extruder at z=0 (I think it goes for z=-0.003 for some reason which is OOB).
 - How do we load/unload filament?
 - Better oozing/purging control:
   - I think the best is probably a purge block and silicon/wire brush. 
