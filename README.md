@@ -37,9 +37,7 @@ Our slicer (SuperSlicer) can do a bunch of stuff that Klipper can - e.g. managin
 ## Todo
 
 - Get multiple SS profiles.
-- Add estimated time based on comparing how long we've taken with how long it should have taken ... ?
 - Calibration docs - copy across from that PR.
-- Add bed levelling to menu.
 - Copy machine limits across from cura ... mine are too conservative now? Both in klipper and in superslicer.
 - Add SuperSlicer config inc. the STL for the plate. Is there a dockerised SuperSlicer?
 - Can we auto-disable if heaters are active for too long doing nothing?
