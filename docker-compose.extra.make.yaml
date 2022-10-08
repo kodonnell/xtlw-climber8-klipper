@@ -1,0 +1,14 @@
+services:
+  make:
+    image: klipper:latest
+    build:
+      context: docker/klipper
+      target: mcu
+    tty: true
+    privileged: true
+    entrypoint: make
+    working_dir: /opt/klipper
+    volumes:
+      - /dev:/dev
+      - ./config/mcu.config:/opt/klipper/.config
+      - ./out:/opt/klipper/out

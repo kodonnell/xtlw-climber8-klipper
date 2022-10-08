@@ -1,0 +1,5 @@
+## Add your personal config here
+services:
+  klipper:
+    devices:
+      - /dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00:/dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00

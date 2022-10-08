@@ -8,9 +8,20 @@ This is mostly:
 
 ## Using it
 
+
+### Running
+
 ```sh
-docker-compose --profile fluidd up -d # spin it up
-docker-compose --profile fluidd down # and down
+docker-compose down && docker-compose up -d
+```
+
+### Flashing MCU
+
+```
+alias make_klipper="docker compose -f docker-compose.extra.make.yaml run --rm make"
+make_klipper menuconfig # If you need to create a new config at config/firmware.config
+make_klipper
+make_klipper flash FLASH_DEVICE=/dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00 NOSUDO=true
 ```
 
 See [prind](https://github.com/mkuf/prind) for more detail (e.g. flashing MCU, other frontends, etc.)

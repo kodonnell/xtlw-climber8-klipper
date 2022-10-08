@@ -1,2 +1,8 @@
 prints/
 config/variables.klip
+klippy-env
+*_history
+out
+*.bkp
+resonances
+*.tar.gz

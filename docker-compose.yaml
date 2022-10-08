@@ -1,37 +1,21 @@
 ## Common Templates
-x-klipper-svc: &klipper-svc
-  image: mkuf/klipper:nightly
-  container_name: klipper
+x-klipper-svc:
+  &klipper-svc
+  image: klipper:latest
+  build:
+    context: docker/klipper
+    target: run
   restart: unless-stopped
   logging:
     driver: none
-  command:
-    - "-I"
-    - "run/klipper.tty"
-    - "-a"
-    - "run/klipper.sock"
-    - "cfg/printer.cfg"
-    - "-l"
-    - "log/klippy.log"
-
-x-ustreamer-svc: &ustreamer-svc
-  image: mkuf/ustreamer:nightly
-  restart: unless-stopped
-  command:
-    - "--host=0.0.0.0"
-    - "--port=8080"
-    - "--slowdown"
-    - "--device=/dev/webcam"
-    - "--resolution=1280x960"
-    - "--format=MJPEG"
-    - "--desired-fps=30"
   depends_on:
-    - traefik
+    init:
+      condition: service_completed_successfully
+  entrypoint: /opt/venv/bin/python klipper/klippy/klippy.py
+  command: -I run/klipper.tty -a run/klipper.sock cfg/printer.cfg -l log/klippy.log
 
 ## Service Definitions
-version: "3.4"
 services:
-
   ## Klippy Services
   ##
   klipper:
@@ -41,11 +25,6 @@ services:
       - run:/opt/run
       - gcode:/opt/gcode
       - log:/opt/log
-    devices:
-      - /dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00:/dev/serial/by-id/usb-Klipper_stm32f407xx_24003F000647333137383034-if00
-    profiles:
-      - fluidd
-      - mainsail
 
   klipper-priv:
     <<: *klipper-svc
@@ -56,34 +35,34 @@ services:
       - run:/opt/run
       - gcode:/opt/gcode
       - log:/opt/log
-    profiles:
-      - octoprint
 
   ## WebApi
   ##
   moonraker:
-    image: mkuf/moonraker:nightly
-    container_name: moonraker
+    image: moonraker:latest
+    build:
+      context: docker/moonraker
+      target: run
     restart: unless-stopped
+    pid: host
     logging:
       driver: none
-    command:
-      - "-c"
-      - "cfg/moonraker.cfg"
-      - "-l"
-      - "log/moonraker.log"
+    command: -c cfg/moonraker.cfg -l log/moonraker.log
     depends_on:
-      - klipper
-      - traefik
+      init:
+        condition: service_completed_successfully
+      klipper:
+        condition: service_started
     volumes:
-      - ./config:/opt/cfg
+      - /dev/null:/opt/klipper/config/null
+      - /dev/null:/opt/klipper/docs/null
+      - /run/dbus:/run/dbus
+      - /run/systemd:/run/systemd
       - run:/opt/run
       - gcode:/opt/gcode
       - log:/opt/log
       - moonraker-db:/opt/db
-    profiles:
-      - fluidd
-      - mainsail
+      - ./config:/opt/cfg
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.moonraker.loadbalancer.server.port=7125"
@@ -92,76 +71,31 @@ services:
 
   ## Frontends
   ##
-  octoprint:
-    image: octoprint/octoprint:minimal
-    container_name: octoprint
-    restart: unless-stopped
-    depends_on:
-      - klipper-priv
-      - traefik
-    privileged: true
-    volumes:
-      - /dev:/dev
-      - run:/opt/run
-      - octoprint:/octoprint
-    profiles:
-      - octoprint
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.octoprint.loadbalancer.server.port=5000"
-      - "traefik.http.routers.octoprint.rule=PathPrefix(`/`)"
-      - "traefik.http.routers.octoprint.entrypoints=web"
-
   fluidd:
-    image: cadriel/fluidd:latest
-    container_name: fluidd
+    image: fluidd:latest
+    build:
+      context: docker/fluidd
     restart: unless-stopped
-    depends_on:
-      - moonraker
-      - traefik
-    profiles:
-      - fluidd
     labels:
       - "traefik.enable=true"
       - "traefik.http.services.fluidd.loadbalancer.server.port=80"
       - "traefik.http.routers.fluidd.rule=PathPrefix(`/`)"
       - "traefik.http.routers.fluidd.entrypoints=web"
 
-  mainsail:
-    image: mkuf/mainsail:nightly
-    container_name: mainsail
-    restart: unless-stopped
-    depends_on:
-      - moonraker
-      - traefik
-    profiles:
-      - mainsail
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.services.mainsail.loadbalancer.server.port=80"
-      - "traefik.http.routers.mainsail.rule=PathPrefix(`/`)"
-      - "traefik.http.routers.mainsail.entrypoints=web"
-
   ## Accompanying Services/Infra
   ##
 
-  ## Webcam Service
-  # ustreamer:
-  #   <<: *ustreamer-svc
-  #   container_name: ustreamer
-  #   devices:
-  #     - /dev/video0:/dev/webcam
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.services.ustreamer.loadbalancer.server.port=8080"
-  #     - "traefik.http.routers.ustreamer.rule=PathPrefix(`/stream`)"
-  #     - "traefik.http.routers.ustreamer.entrypoints=web"
+  ## Config dir needs to be writable by uid/gid 1000
+  ## This container sets the right permissions and exits
+  init:
+    image: busybox:latest
+    command: chown -R 1000:1000 /prind/config
+    volumes:
+      - .:/prind
 
   ## Loadbalancer/Proxy
   traefik:
-    image: "traefik:v2.5"
-    container_name: "traefik"
-    hostname: "traefik"
+    image: traefik:v2.5
     command:
       - "--accesslog"
       - "--providers.docker=true"
@@ -171,7 +105,7 @@ services:
       - "80:80"
     restart: unless-stopped
     volumes:
-        - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
 volumes:
   run:
