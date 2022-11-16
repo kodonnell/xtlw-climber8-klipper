@@ -26,7 +26,42 @@ make_klipper flash FLASH_DEVICE=/dev/serial/by-id/usb-Klipper_stm32f407xx_24003F
 
 See [prind](https://github.com/mkuf/prind) for more detail (e.g. flashing MCU, other frontends, etc.)
 
-## IDEX calibration
+## Configuring printer
+
+### Begin
+
+https://github.com/AndrewEllis93/Print-Tuning-Guide/blob/1ff2312115deff7bcfe34d700056dd36facee3c1/articles/before_we_begin.md
+
+### Level bed
+
+See LCD. Motion -> Level Corners. Move through each four corners leveling with a sheet of paper. Use T0.
+
+### T1 offset
+
+Calibrate first layer with paper trick, this time changing extruder 1 Z offset to adjust height. (Move back and forward - I don't think it moves if you just change it.)
+
+### Calibrate e-steps - T0 and T1
+
+https://docs.vorondesign.com/build/startup/#extruder-calibration-e-steps
+
+### First layer T0 & T1
+
+https://github.com/AndrewEllis93/Print-Tuning-Guide/blob/1ff2312115deff7bcfe34d700056dd36facee3c1/articles/first_layer_squish.md
+
+Use STL `./prints/first-layer/first-layer-patch-0.25mm.stl` and slice with initial layer height = 0.25mm and width = 120%. Use can use `./prints/first-layer/first-layer-patch-0.25mm-120%-*.gcode` which are already sliced with these parameters.
+
+### Pressure advance
+
+Print `./prints/pressure-advance/*` and pick the best, then set it in `./config/macros/start_stop.cfg`
+
+### Extrusion multiplier
+
+Print at 2% intervals first. Open `./prints/configuration/extrusion-multiplier/pressure-advance-0.94-1.06-x-0.02_t0.3mf` first which has all the settings and per-cube flow settings. Or just use the pre-sliced `./prints/configuration/extrusion-multiplier/pressure-advance-0.94-1.06-x-0.02_t0.gcode`.
+
+See https://github.com/AndrewEllis93/Print-Tuning-Guide/blob/main/articles/extrusion_multiplier.md#examples to decide what's "best".
+
+
+### IDEX calibration
 
 Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll the lines when you print it, but for reference (since I don't have the STLs just the gcode), the left min/max `Y` is 46/174, and right extruder min/max is 45.2/174.8 - therefore every step the difference between left and right is 0.04mm. So if we align at e.g. the +15th, this means the right extruder is 15x0.04 = 0.6mm too low, so our offset should be +0.6 over what we currently have.
 
@@ -46,6 +81,7 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 
 ## Todo
 
+- If not printing, move Z when we tune the global/extruder Z offset (otherwise head doesn't move).
 - Get Cura config in. Add M73 progress to it by default.
 - Calibration docs - copy across from that PR.
 - Add duplicate/mirror mode from the PR.
