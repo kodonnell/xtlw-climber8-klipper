@@ -60,6 +60,11 @@ Print at 2% intervals first. Open `./prints/configuration/extrusion-multiplier/p
 
 See https://github.com/AndrewEllis93/Print-Tuning-Guide/blob/main/articles/extrusion_multiplier.md#examples to decide what's "best".
 
+### Input shaping
+
+https://www.klipper3d.org/Resonance_Compensation.html
+
+Follow the above, and use `./prints/configuration/input-shaping/ringing-tower-t0.gcode` (or the 3MF which has the settings already).
 
 ### IDEX calibration
 
