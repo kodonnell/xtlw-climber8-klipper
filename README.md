@@ -88,13 +88,18 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 
 - If not printing, move Z when we tune the global/extruder Z offset (otherwise head doesn't move).
 - Get Cura config in. Add M73 progress to it by default.
-- Calibration docs - copy across from that PR.
-- Add duplicate/mirror mode from the PR.
+- Duplicate/mirror mode?
 - Copy machine limits across from cura to klipper.
-- Do heaters auto-disable if they are active for too long doing nothing?
-- How do we load/unload filament?
-- Why do I sometimes need to restart the stack? Debug that.
 - Need more cooling - slow down on small parts?
+- Settings:
+  - Use faster travel - less oozing. Maybe a bit more retraction on travel?
+  - changes (for all profiles):
+    - initial layer height = .25mm
+    - initial layer width = 120%
+- Create a new printer profile in cura with only a single extruder (one for each)? Means:
+	- Less likely to put settings on wrong extruder
+	- Don't have to worry about changing material per object, or prime towers, etc.
+	- Our start_gcode can know which extruders are used (not currently possible). This means we can heat/prime more easily etc.
 - Hardware:
   - Stiffen? And straighten.
   - More part cooling fans?

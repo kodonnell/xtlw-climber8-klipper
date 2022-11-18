@@ -1,4 +1,6 @@
-prints/
+!prints/
+prints/*
+!prints/configuration/
 config/variables.klip
 klippy-env
 *_history
