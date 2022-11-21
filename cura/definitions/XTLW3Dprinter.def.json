@@ -1,0 +1,297 @@
+{
+    "version": 2,
+    "name": "XTLW3Dprinter",
+    "inherits": "fdmprinter",
+    "metadata": {
+        "visible": false,
+        "author": "XTLW 3D",
+        "manufacturer": "XTLW 3D",
+        "file_formats": "text/x-gcode",
+        "has_machine_quality": true,
+        "has_materials": true
+    },
+    "overrides": {
+        "machine_width": {
+            "default_value": 205
+        },
+        "machine_height": {
+            "default_value": 240
+        },
+        "machine_depth": {
+            "default_value": 220
+        },
+        "machine_heated_bed": {
+            "default_value": true
+        },
+        "machine_center_is_zero": {
+            "default_value": false
+        },
+        "machine_nozzle_size": {
+            "default_value": 0.4
+        },
+        "material_diameter": {
+            "default_value": 1.75
+        },
+        "machine_max_feedrate_x": {
+            "value": 300
+        },
+        "machine_max_feedrate_y": {
+            "value": 300
+        },
+        "machine_max_feedrate_z": {
+            "value": 10
+        },
+        "machine_max_feedrate_e": {
+            "value": 300
+        },
+        "machine_max_acceleration_x": {
+            "value": 5000
+        },
+        "machine_max_acceleration_y": {
+            "value": 5000
+        },
+        "machine_max_acceleration_z": {
+            "value": 100
+        },
+        "machine_max_acceleration_e": {
+            "value": 10000
+        },
+        "machine_acceleration": {
+            "value": 1000
+        },
+        "machine_max_jerk_xy": {
+            "value": 15
+        },
+        "machine_max_jerk_z": {
+            "value": 0.4
+        },
+        "machine_max_jerk_e": {
+            "value": 25
+        },
+        "line_width": {
+            "value": "machine_nozzle_size"
+        },
+        "wall_thickness": {
+            "value": "line_width * 3"
+        },
+        "retraction_amount": {
+            "default_value": 6.5
+        },
+        "retraction_speed": {
+            "default_value": 40
+        },
+        "speed_travel": {
+            "value": "120"
+        },
+        "speed_print": {
+            "value": "60"
+        },
+        "speed_layer_0": {
+            "value": "20"
+        },
+        "speed_support": {
+            "value": "speed_wall_0"
+        },
+        "speed_support_interface": {
+            "value": "speed_topbottom"
+        },
+        "speed_topbottom": {
+            "value": "math.ceil(speed_print * 35 / 60)"
+        },
+        "speed_wall": {
+            "value": "math.ceil(speed_print * 45 / 60)"
+        },
+        "speed_wall_0": {
+            "value": "math.ceil(speed_wall * 25 / 45)"
+        },
+        "speed_wall_x": {
+            "value": "speed_wall"
+        },
+        "acceleration_enabled": {
+            "default_value": true
+        },
+        "acceleration_print": {
+            "value": "1000"
+        },
+        "acceleration_travel": {
+            "value": "1500"
+        },
+        "acceleration_layer_0": {
+            "value": "acceleration_topbottom"
+        },
+        "acceleration_support": {
+            "value": "math.ceil(acceleration_print * 500 / 1000)"
+        },
+        "acceleration_support_interface": {
+            "value": "acceleration_topbottom"
+        },
+        "acceleration_topbottom": {
+            "value": "math.ceil(acceleration_print * 500 / 1000)"
+        },
+        "acceleration_wall": {
+            "value": "math.ceil(acceleration_print * 1000 / 1000)"
+        },
+        "acceleration_wall_0": {
+            "value": "math.ceil(acceleration_wall * 500 / 1000)"
+        },
+        "jerk_enabled": {
+            "default_value": true
+        },
+        "jerk_print": {
+            "value": "10"
+        },
+        "jerk_travel": {
+            "value": "15"
+        },
+        "jerk_layer_0": {
+            "value": "jerk_topbottom"
+        },
+        "jerk_support": {
+            "value": "math.ceil(jerk_print * 5 / 10)"
+        },
+        "jerk_support_interface": {
+            "value": "jerk_topbottom"
+        },
+        "jerk_topbottom": {
+            "value": "math.ceil(jerk_print * 5 / 10)"
+        },
+        "jerk_wall": {
+            "value": "math.ceil(jerk_print * 10 / 10)"
+        },
+        "jerk_wall_0": {
+            "value": "math.ceil(jerk_wall * 5 / 10)"
+        },
+        "jerk_travel_layer_0": {
+            "value": "math.ceil(jerk_layer_0 * 10 / 5)"
+        },
+        "machine_gcode_flavor": {
+            "default_value": "RepRap (Marlin/Sprinter)"
+        },
+        "optimize_wall_printing_order": {
+            "value": "True"
+        },
+        "top_bottom_pattern": {
+            "value": "'zigzag'"
+        },
+        "infill_wipe_dist": {
+            "value": "0"
+        },
+        "infill_pattern": {
+            "value": "'lines' if infill_sparse_density > 50 else 'cubic'"
+        },
+        "zig_zaggify_infill": {
+            "value": "gradual_infill_steps == 0"
+        },
+        "speed_z_hop": {
+            "value": 5
+        },
+        "travel_avoid_other_parts": {
+            "value": true
+        },
+        "travel_avoid_supports": {
+            "value": true
+        },
+        "travel_avoid_distance": {
+            "value": "3 if extruders_enabled_count > 1 else machine_nozzle_tip_outer_diameter / 2 * 1.5"
+        },
+        "retraction_hop_enabled": {
+            "value": "extruders_enabled_count > 1"
+        },
+        "retraction_hop_only_when_collides": {
+            "value": "True"
+        },
+        "retraction_hop": {
+            "value": "2 if extruders_enabled_count > 1 else layer_height"
+        },
+        "retraction_hop_height_after_extruder_switch": {
+            "value": 2
+        },
+        "retraction_combing": {
+            "value": "'off' if retraction_hop_enabled else 'infill'"
+        },
+        "retraction_combing_max_distance": {
+            "value": 20
+        },
+        "cool_fan_full_at_height": {
+            "value": "0 if resolveOrValue('adhesion_type') == 'raft' else resolveOrValue('layer_height_0')"
+        },
+        "cool_min_layer_time": {
+            "value": 10
+        },
+        "support_angle": {
+            "value": "60"
+        },
+        "support_pattern": {
+            "value": "'zigzag'"
+        },
+        "support_infill_rate": {
+            "value": "0 if support_tree_enable else 20"
+        },
+        "support_use_towers": {
+            "value": false
+        },
+        "support_xy_distance": {
+            "value": "wall_line_width_0 * 2"
+        },
+        "support_xy_distance_overhang": {
+            "value": "wall_line_width_0"
+        },
+        "support_z_distance": {
+            "value": "layer_height if layer_height >= 0.15 else layer_height*2"
+        },
+        "support_xy_overrides_z": {
+            "value": "'xy_overrides_z'"
+        },
+        "support_wall_count": {
+            "value": 1
+        },
+        "support_brim_enable": {
+            "value": true
+        },
+        "support_brim_width": {
+            "value": 4
+        },
+        "support_interface_enable": {
+            "value": true
+        },
+        "support_interface_height": {
+            "value": "layer_height * 5"
+        },
+        "support_interface_density": {
+            "value": 33.333
+        },
+        "support_interface_pattern": {
+            "value": "'grid'"
+        },
+        "support_interface_skip_height": {
+            "value": 0.2
+        },
+        "minimum_support_area": {
+            "value": 5
+        },
+        "minimum_interface_area": {
+            "value": 10
+        },
+        "adhesion_type": {
+            "value": "'skirt'"
+        },
+        "brim_replaces_support": {
+            "value": true
+        },
+        "machine_end_gcode": {
+            "value": "END_PRINT"
+        },
+        "machine_start_gcode": {
+            "value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=1\n"
+        },
+        "layer_height_0": {
+            "value": 0.25
+        },
+        "initial_layer_line_width_factor": {
+            "value": 120
+        },
+        "travel_retract_before_outer_wall": {
+            "value": true
+        }
+    }
+}

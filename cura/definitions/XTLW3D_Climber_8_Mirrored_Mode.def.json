@@ -1,0 +1,37 @@
+{
+    "version": 2,
+    "name": "Climber 8 Mirrored Mode ",
+    "inherits": "XTLW3Dprinter",
+    "metadata": {
+        "visible": true,
+        "author": "XTLW 3D",
+        "manufacturer": "XTLW 3D",
+        "category": "Other",
+        "file_formats": "text/x-gcode",
+        "platform": "climber8_platform.stl",
+        "platform_offset": [
+            67.5,
+            0,
+            0
+        ],
+        "hsa_material": true,
+        "has_machine_quality": true,
+        "quality_definition": "XTLW3Dprinter",
+        "has_variants": false,
+        "weight": -8,
+        "machine_extruder_trains": {
+            "0": "xtlw3D_climber_8_mm_extruder"
+        }
+    },
+    "overrides": {
+        "machine_name": {
+            "default_value": "Climber 8 Mirrored Mode "
+        },
+        "machine_width": {
+            "default_value": 83
+        },
+        "machine_extruder_count": {
+            "default_value": 1
+        }
+    }
+}

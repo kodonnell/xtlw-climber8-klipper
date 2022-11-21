@@ -1,0 +1,51 @@
+{
+    "version": 2,
+    "name": "Climber 8 (Dual)",
+    "inherits": "XTLW3Dprinter",
+    "metadata": {
+        "visible": true,
+        "author": "XTLW 3D",
+        "manufacturer": "XTLW 3D",
+        "category": "Other",
+        "file_formats": "text/x-gcode",
+        "platform": "climber8_platform.stl",
+        "hsa_material": true,
+        "has_machine_quality": true,
+        "quality_definition": "XTLW3Dprinter",
+        "has_variants": false,
+        "weight": -9,
+        "machine_extruder_trains": {
+            "0": "xtlw3D_climber_8_dual_extruder_0",
+            "1": "xtlw3D_climber_8_dual_extruder_1"
+        }
+    },
+    "overrides": {
+        "machine_name": {
+            "default_value": "Climber 8 (Dual)"
+        },
+        "switch_extruder_retraction_amount": {
+            "default_value": 16
+        },
+        "switch_extruder_retraction_speeds": {
+            "default_value": 50
+        },
+        "speed_prime_tower": {
+            "value": "speed_topbottom"
+        },
+        "prime_tower_enable": {
+            "value": true
+        },
+        "prime_tower_position_x": {
+            "value": "193.2"
+        },
+        "prime_tower_position_y": {
+            "value": "188.2"
+        },
+        "prime_tower_min_volume": {
+            "value": "6"
+        },
+        "machine_extruder_count": {
+            "default_value": 2
+        }
+    }
+}

@@ -8,7 +8,6 @@ This is mostly:
 
 ## Using it
 
-
 ### Running
 
 ```sh
@@ -70,6 +69,19 @@ Follow the above, and use `./prints/configuration/input-shaping/ringing-tower-t0
 
 Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll the lines when you print it, but for reference (since I don't have the STLs just the gcode), the left min/max `Y` is 46/174, and right extruder min/max is 45.2/174.8 - therefore every step the difference between left and right is 0.04mm. So if we align at e.g. the +15th, this means the right extruder is 15x0.04 = 0.6mm too low, so our offset should be +0.6 over what we currently have.
 
+## Copying settings to Cura
+
+- Install Cura and find home directory `Help -> Show Configuration Folder`. This is likely to be e.g. `~/.local/share/cura/<version>`.
+- Delete this.
+- Replace with symlink to `./cura`
+- Now open Cura again, and `Add printer` and add the `XTLW 3D` ones nears the bottom.
+- You can add the relevant plugins to each printer instance, or just add this after `group_id = ...` in the `[metadata]` section:
+
+```txt
+post_processing_scripts = [DisplayProgressOnLCD]\\\ntime_remaining = True\\\ntime_remaining_method = m73\\\nupdate_frequency = 15\\\npercentage = True\\\n\\\n
+	[SearchAndReplace]\\\nsearch = ;Generated with Cura_SteamEngine .*\nT[01]\\\nreplace = ; KO: customer Search and Replace post-processing plugin in Cura removed Cura's auto-setting of extruder\\\nis_regex = True\\\n\\\n
+```
+
 ## Slicing tips (Cura)
 
 - Use the Climber8 config provided to you (see [here](https://github.com/MrRandomStranger/XTLW-Climber-8) if you missed it). Specifically:
@@ -86,20 +98,15 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 
 ## Todo
 
+- Mirror base from kid's room?
+- Changed X stepper run_current from 0.8 to 0.6 as they were hot even when stationary ... check not too weak.
 - If not printing, move Z when we tune the global/extruder Z offset (otherwise head doesn't move).
-- Get Cura config in. Add M73 progress to it by default.
-- Duplicate/mirror mode?
-- Copy machine limits across from cura to klipper.
-- Need more cooling - slow down on small parts?
+
+### Later
+
+- Klipper support for duplicate/mirror mode?
 - Settings:
-  - Use faster travel - less oozing. Maybe a bit more retraction on travel?
-  - changes (for all profiles):
-    - initial layer height = .25mm
-    - initial layer width = 120%
-- Create a new printer profile in cura with only a single extruder (one for each)? Means:
-	- Less likely to put settings on wrong extruder
-	- Don't have to worry about changing material per object, or prime towers, etc.
-	- Our start_gcode can know which extruders are used (not currently possible). This means we can heat/prime more easily etc.
+  - Use faster travel - less oozing/stringing. Maybe a bit more retraction on travel?
 - Hardware:
   - Stiffen? And straighten.
   - More part cooling fans?

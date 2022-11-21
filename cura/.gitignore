@@ -1,0 +1,15 @@
+/*
+!.gitignore
+# Keep mesh
+!meshes/*.stl
+# Keep all *.def.json in definitions/extruders/quality
+!definitions/
+definitions/*
+!definitions/*.def.json
+!extruders/
+extruders/*
+!extruders/*.def.json
+# And the quality/*.inst.cfg
+!quality/
+quality/*
+!quality/*.inst.cfg
