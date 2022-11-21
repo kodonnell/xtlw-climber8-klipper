@@ -225,7 +225,7 @@
             "value": "'zigzag'"
         },
         "support_infill_rate": {
-            "value": "0 if support_tree_enable else 20"
+            "value": 20
         },
         "support_use_towers": {
             "value": false
@@ -279,10 +279,10 @@
             "value": true
         },
         "machine_end_gcode": {
-            "value": "END_PRINT"
+            "default_value": "END_PRINT"
         },
         "machine_start_gcode": {
-            "value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=1\n"
+            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=1\n"
         },
         "layer_height_0": {
             "value": 0.25

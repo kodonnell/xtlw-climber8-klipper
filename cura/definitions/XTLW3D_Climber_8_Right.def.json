@@ -23,7 +23,7 @@
             "default_value": "Climber 8 (Right)"
         },
         "machine_start_gcode": {
-            "value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=0 EXTRUDER1=1\n"
+            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=0 EXTRUDER1=1\n"
         },
         "machine_extruder_count": {
             "default_value": 1
