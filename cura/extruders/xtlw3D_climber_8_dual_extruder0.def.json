@@ -1,17 +1,12 @@
 {
-    "id": "xtlw3D_climber_8_dual_extruder_0",
     "version": 2,
     "name": "Left Extruder",
     "inherits": "fdmextruder",
     "metadata": {
-        "machine": "Climber 8 (Dual)",
+        "machine": "XTLW3D_Climber_8_Dual",
         "position": "0"
     },
     "overrides": {
-        "extruder_nr": {
-            "default_value": 0,
-            "maximum_value": "1"
-        },
         "machine_nozzle_size": {
             "default_value": 0.4
         },

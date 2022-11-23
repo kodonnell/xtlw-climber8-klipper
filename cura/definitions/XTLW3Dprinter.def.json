@@ -8,7 +8,9 @@
         "manufacturer": "XTLW 3D",
         "file_formats": "text/x-gcode",
         "has_machine_quality": true,
-        "has_materials": true
+        "has_materials": true,
+        "supports_usb_connection": false,
+        "preferred_material": "eSUN_PLA_PRO_Black"
     },
     "overrides": {
         "machine_width": {
@@ -108,61 +110,10 @@
             "value": "speed_wall"
         },
         "acceleration_enabled": {
-            "default_value": true
-        },
-        "acceleration_print": {
-            "value": "1000"
-        },
-        "acceleration_travel": {
-            "value": "1500"
-        },
-        "acceleration_layer_0": {
-            "value": "acceleration_topbottom"
-        },
-        "acceleration_support": {
-            "value": "math.ceil(acceleration_print * 500 / 1000)"
-        },
-        "acceleration_support_interface": {
-            "value": "acceleration_topbottom"
-        },
-        "acceleration_topbottom": {
-            "value": "math.ceil(acceleration_print * 500 / 1000)"
-        },
-        "acceleration_wall": {
-            "value": "math.ceil(acceleration_print * 1000 / 1000)"
-        },
-        "acceleration_wall_0": {
-            "value": "math.ceil(acceleration_wall * 500 / 1000)"
+            "default_value": false
         },
         "jerk_enabled": {
-            "default_value": true
-        },
-        "jerk_print": {
-            "value": "10"
-        },
-        "jerk_travel": {
-            "value": "15"
-        },
-        "jerk_layer_0": {
-            "value": "jerk_topbottom"
-        },
-        "jerk_support": {
-            "value": "math.ceil(jerk_print * 5 / 10)"
-        },
-        "jerk_support_interface": {
-            "value": "jerk_topbottom"
-        },
-        "jerk_topbottom": {
-            "value": "math.ceil(jerk_print * 5 / 10)"
-        },
-        "jerk_wall": {
-            "value": "math.ceil(jerk_print * 10 / 10)"
-        },
-        "jerk_wall_0": {
-            "value": "math.ceil(jerk_wall * 5 / 10)"
-        },
-        "jerk_travel_layer_0": {
-            "value": "math.ceil(jerk_layer_0 * 10 / 5)"
+            "default_value": false
         },
         "machine_gcode_flavor": {
             "default_value": "RepRap (Marlin/Sprinter)"

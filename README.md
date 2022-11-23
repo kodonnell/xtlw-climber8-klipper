@@ -76,11 +76,12 @@ Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll
 - Replace with symlink to `./cura`
 - Now open Cura again, and `Add printer` and add the `XTLW 3D` ones nears the bottom.
 - You can add the relevant plugins to each printer instance, or just add this after `group_id = ...` in the `[metadata]` section:
-
-```txt
-post_processing_scripts = [DisplayProgressOnLCD]\\\ntime_remaining = True\\\ntime_remaining_method = m73\\\nupdate_frequency = 15\\\npercentage = True\\\n\\\n
-	[SearchAndReplace]\\\nsearch = ;Generated with Cura_SteamEngine .*\nT[01]\\\nreplace = ; KO: customer Search and Replace post-processing plugin in Cura removed Cura's auto-setting of extruder\\\nis_regex = True\\\n\\\n
-```
+  ```txt
+  post_processing_scripts = [DisplayProgressOnLCD]\\\ntime_remaining = True\\\ntime_remaining_method = m73\\\nupdate_frequency = 15\\\npercentage = True\\\n\\\n
+    [SearchAndReplace]\\\nsearch = ;Generated with Cura_SteamEngine .*\nT[01]\\\nreplace = ; KO: custom Search and Replace post-processing plugin in Cura to remove Cura's activation of extruder before start gcode\\\nis_regex = True\\\n\\\n
+    [SearchAndReplace]\\\nsearch = ;LAYER_COUNT:(.*)\\\nreplace = ;LAYER_COUNT:\1\nSET_PRINT_STATS_INFO TOTAL_LAYER=\1\\\nis_regex = True\\\n\\\n
+    [SearchAndReplace]\\\nsearch = ;LAYER:(.*)\\\nreplace = ;LAYER:\1\nSET_PRINT_STATS_INFO CURRENT_LAYER=\1\\\nis_regex = True\\\n\\\n
+  ```
 
 ## Slicing tips (Cura)
 
@@ -99,14 +100,14 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 ## Todo
 
 - Mirror base from kid's room?
-- Changed X stepper run_current from 0.8 to 0.6 as they were hot even when stationary ... check not too weak.
-- If not printing, move Z when we tune the global/extruder Z offset (otherwise head doesn't move).
 
 ### Later
 
 - Klipper support for duplicate/mirror mode?
 - Settings:
   - Use faster travel - less oozing/stringing. Maybe a bit more retraction on travel?
+- Display:
+  - Screensaver if not printing? I think we'll need to add a new printer variable such as the time, then select full screen glyphs that way.
 - Hardware:
   - Stiffen? And straighten.
   - More part cooling fans?

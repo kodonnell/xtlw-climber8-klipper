@@ -4,18 +4,9 @@
     "inherits": "XTLW3Dprinter",
     "metadata": {
         "visible": true,
-        "author": "XTLW 3D",
-        "manufacturer": "XTLW 3D",
-        "category": "Other",
-        "file_formats": "text/x-gcode",
-        "platform": "climber8_platform.stl",
-        "hsa_material": true,
-        "has_machine_quality": true,
         "quality_definition": "XTLW3Dprinter",
-        "has_variants": false,
-        "weight": -9,
         "machine_extruder_trains": {
-            "1": "xtlw3D_climber_8_dual_extruder_1"
+            "0": "xtlw3D_climber_8_extruder_right"
         }
     },
     "overrides": {
