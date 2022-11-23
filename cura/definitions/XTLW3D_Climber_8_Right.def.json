@@ -15,7 +15,7 @@
         "has_variants": false,
         "weight": -9,
         "machine_extruder_trains": {
-            "0": "xtlw3D_climber_8_dual_extruder_1"
+            "1": "xtlw3D_climber_8_dual_extruder_1"
         }
     },
     "overrides": {
@@ -23,7 +23,7 @@
             "default_value": "Climber 8 (Right)"
         },
         "machine_start_gcode": {
-            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=0 EXTRUDER1=1\n"
+            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=0 EXTRUDER1=1 INITIAL_EXTRUDER=1\n"
         },
         "machine_extruder_count": {
             "default_value": 1

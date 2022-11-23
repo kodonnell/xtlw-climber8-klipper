@@ -75,10 +75,10 @@
             "value": "line_width * 3"
         },
         "retraction_amount": {
-            "default_value": 6.5
+            "default_value": 3
         },
         "retraction_speed": {
-            "default_value": 40
+            "default_value": 30
         },
         "speed_travel": {
             "value": "120"
@@ -282,7 +282,7 @@
             "default_value": "END_PRINT"
         },
         "machine_start_gcode": {
-            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=1\n"
+            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=1 INITIAL_EXTRUDER={initial_extruder_nr}\n"
         },
         "layer_height_0": {
             "value": 0.25
