@@ -100,7 +100,6 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 ## Todo
 
 - Mirror base from kid's room?
-- Add pause to main menu
 - Make def's like creality e.g.
   - https://github.com/Ultimaker/Cura/blob/main/resources/definitions/creality_base.def.json
   - (variants) https://github.com/Ultimaker/Cura/blob/main/resources/variants/creality_base_0.4.inst.cfg
