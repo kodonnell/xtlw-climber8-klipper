@@ -37,6 +37,9 @@
         },
         "machine_extruder_count": {
             "default_value": 2
+        },
+        "extruders_enabled_count": {
+            "default_value": 2
         }
     }
 }

@@ -76,12 +76,6 @@
         "wall_thickness": {
             "value": "line_width * 3"
         },
-        "retraction_amount": {
-            "default_value": 3
-        },
-        "retraction_speed": {
-            "default_value": 30
-        },
         "speed_travel": {
             "value": "120"
         },
@@ -145,6 +139,15 @@
         "travel_avoid_distance": {
             "value": "3 if extruders_enabled_count > 1 else machine_nozzle_tip_outer_diameter / 2 * 1.5"
         },
+        "retraction_amount": {
+            "default_value": 1
+        },
+        "retraction_speed": {
+            "default_value": 30
+        },
+        "retract_at_layer_change": {
+            "default_value": true
+        },
         "retraction_hop_enabled": {
             "value": "extruders_enabled_count > 1"
         },
@@ -159,9 +162,6 @@
         },
         "retraction_combing": {
             "value": "'off' if retraction_hop_enabled else 'infill'"
-        },
-        "retraction_combing_max_distance": {
-            "value": 20
         },
         "cool_fan_full_at_height": {
             "value": "0 if resolveOrValue('adhesion_type') == 'raft' else resolveOrValue('layer_height_0')"

@@ -83,13 +83,14 @@ Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll
     [SearchAndReplace]\\\nsearch = ;LAYER:(.*)\\\nreplace = ;LAYER:\1\nSET_PRINT_STATS_INFO CURRENT_LAYER=\1\\\nis_regex = True\\\n\\\n
   ```
 
-## Slicing tips (Cura)
+## Slicing tips/comments
 
-- Use the Climber8 config provided to you (see [here](https://github.com/MrRandomStranger/XTLW-Climber-8) if you missed it). Specifically:
-  - Make sure you're retracting including on tool change.
+- Retraction distance is only 1mm which is low for bowden - but this is because we're using klipper and pressure advance. If you're not, you may need to tune it a lot higher. Note that for eSun PLA+, printing at 190 seems to reduce stringing a lot, even though that's "too low". Maybe it's wet filament, or maybe our temperature readings are too low.
+- Dual mode:
   - Use a purge tower. You'll need it.
-  - Ensure you're z-hopping on retraction. This also z-hops on tool change.
-  - Set your temperatures for tool changes accordingly.
+  - Using a draft shield can help minimise cross-contamination. I haven't tested this, but turning off z-hop may help ensure the nozzle wipes the draft shield.
+  - That said, ensure you're z-hopping on retraction. This also z-hops on tool change. Should test this, and the above point, more.
+  - A brim is a good idea, in case the nozzles knock the prints around a bit.
 
 ## Slicer vs Klipper?
 
@@ -97,8 +98,38 @@ Originally I thought I'd use Klipper to do most things, as then I could easily c
 
 I'm probably not going to be entirely consistent on this, as it's fun learning new things. 
 
+## Recovering after a power loss / docker update / etc.
+
+Open the klippy.log, and find the last line like
+
+```
+Stats 420126.9: gcodein=0  mcu: mcu_awake=0.010 mcu_task_avg=0.000014 mcu_task_stddev=0.000021 bytes_write=23883555 bytes_read=4441273 bytes_retransmit=9 bytes_invalid=0 send_seq=430513 receive_seq=430513 retransmit_seq=2 srtt=0.001 rttvar=0.000 rto=0.025 ready_bytes=15 stalled_bytes=0 freq=168003933 heater_bed: target=60 temp=59.2 pwm=0.000 sd_pos=7250818 sysload=1.14 cputime=454.045 memavail=7759512 print_time=22546.079 buffer_time=2.121 print_stall=0 extruder: target=210 temp=209.3 pwm=0.640 extruder1: target=0 temp=22.2 pwm=0.000
+```
+
+Grab the value of `sd_pos` e.g. `23883555` in this example. This is approximately the position in gcode where klipper got up to. To find the line that is, you can do something like the below:
+
+```python
+sd_pos = 23883555
+with open('<gcode-file>.gcode') as f:
+    gcode = f.read()
+print("approximately last printed line: {gcode[:sd_pos].count('\n')}")
+```
+
+Then, go delete everything before that line, excluding the machine start-up etc. If the line above was e.g. 
+
+```
+G1 X89.735 Y101.928 E3687.54304
+```
+
+Then, since we're using absolute extruder varlues, ensure you start the extruder from here e.g. insert a
+
+```
+G92 E3687.54304
+```
+
 ## Todo
 
+- https://github.com/5axes/Calibration-Shapes/wiki
 - Mirror base from kid's room?
 - Make def's like creality e.g.
   - https://github.com/Ultimaker/Cura/blob/main/resources/definitions/creality_base.def.json
@@ -107,8 +138,6 @@ I'm probably not going to be entirely consistent on this, as it's fun learning n
 ### Later
 
 - Klipper support for duplicate/mirror mode?
-- Settings:
-  - Use faster travel - less oozing/stringing. Maybe a bit more retraction on travel?
 - Display:
   - Screensaver if not printing? I think we'll need to add a new printer variable such as the time, then select full screen glyphs that way.
 - Hardware:
