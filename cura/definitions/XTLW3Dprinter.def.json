@@ -140,7 +140,7 @@
             "value": "3 if extruders_enabled_count > 1 else machine_nozzle_tip_outer_diameter / 2 * 1.5"
         },
         "retraction_amount": {
-            "default_value": 1
+            "default_value": 3
         },
         "retraction_speed": {
             "default_value": 30
@@ -243,6 +243,9 @@
         },
         "travel_retract_before_outer_wall": {
             "value": true
+        },
+        "skirt_brim_minimal_length": {
+            "default_value": 100
         }
     }
 }

@@ -1,0 +1,26 @@
+{
+    "version": 2,
+    "name": "Climber 8 (Left 0.6mm)",
+    "inherits": "XTLW3Dprinter",
+    "metadata": {
+        "visible": true,
+        "quality_definition": "XTLW3Dprinter",
+        "machine_extruder_trains": {
+            "0": "xtlw3D_climber_8_extruder_left_0.6"
+        }
+    },
+    "overrides": {
+        "machine_name": {
+            "default_value": "Climber 8 (Left 0.6mm)"
+        },
+        "machine_start_gcode": {
+            "default_value": "; START GCODE\nSTART_PRINT BED_TEMP={material_bed_temperature_layer_0} EXTRUDER_TEMP={material_print_temperature_layer_0} EXTRUDER0=1 EXTRUDER1=0 INITIAL_EXTRUDER=0\n"
+        },
+        "machine_extruder_count": {
+            "default_value": 1
+        },
+        "extruders_enabled_count": {
+            "default_value": 1
+        }
+    }
+}

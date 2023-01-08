@@ -51,7 +51,7 @@ Use STL `./prints/first-layer/first-layer-patch-0.25mm.stl` and slice with initi
 
 ### Pressure advance
 
-Print `./prints/pressure-advance/*` and pick the best, then set it in `./config/macros/start_stop.cfg`
+Print `./prints/pressure-advance/*` and pick the best line, then set it in `./config/macros/start_stop.cfg`. Note that this gcode disables pressure advance and input shaping (and then restarts at the end to reset things).
 
 ### Extrusion multiplier
 
@@ -94,9 +94,9 @@ Print `./prints/idex_offset_calibration/idex_y_offset_calibration.gcode`. You'll
 
 ## Slicer vs Klipper?
 
-Originally I thought I'd use Klipper to do most things, as then I could easily change slicers etc. However, it meant quite a lot of dev and figuring stuff out myself, and it wasn't really worth it. Maybe later if/when I add a purge bucket and wipe area I might go back to Klipper doing it all, but for now, Cura. Things will stay in Klipper if they're machine/configuration specific (e.g. offsets) - I want to be able to reprint the same gcode later even if I've retuned the machine (which wouldn't work if e.g. the offsets were in Cura's gcode). 
+Originally I thought I'd use Klipper to do most things, as then I could easily change slicers etc. However, it meant quite a lot of dev and figuring stuff out myself, and it wasn't really worth it. Maybe later if/when I add a purge bucket and wipe area I might go back to Klipper doing it all, but for now, Cura. Things will stay in Klipper if they're machine/configuration specific (e.g. offsets) - I want to be able to reprint the same gcode later even if I've retuned the machine (which wouldn't work if e.g. the offsets were in Cura's gcode).
 
-I'm probably not going to be entirely consistent on this, as it's fun learning new things. 
+I'm probably not going to be entirely consistent on this, as it's fun learning new things.
 
 ## Recovering after a power loss / docker update / etc.
 
@@ -115,7 +115,7 @@ with open('<gcode-file>.gcode') as f:
 print("approximately last printed line: {gcode[:sd_pos].count('\n')}")
 ```
 
-Then, go delete everything before that line, excluding the machine start-up etc. If the line above was e.g. 
+Then, go delete everything before that line, excluding the machine start-up etc. If the line above was e.g.
 
 ```
 G1 X89.735 Y101.928 E3687.54304
@@ -129,6 +129,9 @@ G92 E3687.54304
 
 ## Todo
 
+- try 0.4 layer height with 0.6 nozzle
+- subtact gcode offset z from displayed z height
+- Handle long vs short nozzles somehow ...
 - https://github.com/5axes/Calibration-Shapes/wiki
 - Mirror base from kid's room?
 - Make def's like creality e.g.
